@@ -1,12 +1,7 @@
-# React + Vite
+# Chatbot Front-End
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the front-end of our chatbot application, designed for our non-profit startup.
 
-Currently, two official plugins are available:
+This application powers an intelligent and user-friendly interface for a chatbot that generates instant **auto repair cost estimations**. With a clean UI and smooth user experience, our goal is to help users quickly understand potential repair expenses — without the hassle.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Built with modern web technologies, this project is a key step in making auto repair more transparent and accessible to everyone.
