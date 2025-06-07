@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+p {
+  @apply bg-amber-50
+}
