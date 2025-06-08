@@ -1,5 +1,53 @@
+@import url(https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,500;1,14..32,500&display=swap);
 @import 'tailwindcss';
 
-p {
-  @apply bg-amber-50
+/**
+ * BASE: If you want to add your own default base styles for specific HTML elements,
+ * use the @layer directive to add those styles to Tailwind's base layer:
+ */
+ @layer base {
+  a,
+  img,
+  button {
+    @apply block;
+  }
+
+  input {
+    @apply block
+    outline-none
+    bg-transparent
+    w-full;
+  }
+
+  input[type='password'] {
+    @apply tracking-[5px];
+  }
+
+  input[type='password']::placeholder {
+    @apply tracking-normal;
+  }
+
+
+  ::-webkit-scrollbar {
+    @apply w-2
+    h-2
+    rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-transparent
+    rounded-full;
+  }
+
+  // 語法	意義	範例
+  // :	pseudo-class	:hover, :focus
+  // ::	pseudo-element	::before, ::after, ::placeholder
+  *:hover::-webkit-scrollbar-thumb {
+
+  }
+}
+
+/* Customization */
+@theme {
+  --font-display: ['DM Sans', 'sans-serif'],
 }

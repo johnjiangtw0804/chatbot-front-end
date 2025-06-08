@@ -1,3 +1,4 @@
+/** Home page */
 function App() {
   return (
     <>
