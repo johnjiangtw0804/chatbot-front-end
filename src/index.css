@@ -6,6 +6,13 @@
  * use the @layer directive to add those styles to Tailwind's base layer:
  */
  @layer base {
+  body {
+    @apply bg-(--light-background)
+           dark:bg-(--dark-background)
+           text-(--text-light-primary)
+           dark:text-(--text-dark-primary);
+  }
+
   a,
   img,
   button {
@@ -43,11 +50,23 @@
   // :	pseudo-class	:hover, :focus
   // ::	pseudo-element	::before, ::after, ::placeholder
   *:hover::-webkit-scrollbar-thumb {
-
+    @apply bg-amber-50;
+           dark:bg-bg-amber-50;
   }
 }
 
+
 /* Customization */
-@theme {
-  --font-display: ['DM Sans', 'sans-serif'],
+:root {
+  --font-display: 'DM Sans', sans-serif;
+  --light-background: #ECF2EE;
+  --dark-background: #0E1513;
+
+  --text-light-primary: #0D1A16;
+  --text-light-secondary: #4B635C;
+  --text-light-accent: #096B5A;
+
+  --text-dark-primary: #DEE4E0;
+  --text-dark-secondary: #A1F2DC;
+  --text-dark-accent: #85D6C1;
 }

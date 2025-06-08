@@ -13,6 +13,7 @@ import Register from "../pages/Register";
 
 /**
  * Router: 用來 Map to different pages
+ * https://www.w3schools.com/react/react_router.asp
  */
 const router = createBrowserRouter([
   {
