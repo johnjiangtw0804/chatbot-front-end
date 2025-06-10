@@ -1,16 +1,16 @@
 @import url(https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,500;1,14..32,500&display=swap);
 @import 'tailwindcss';
 
-/**
- * BASE: If you want to add your own default base styles for specific HTML elements,
- * use the @layer directive to add those styles to Tailwind's base layer:
- */
+ /* BASE */
+ /* If you want to add your own default base styles for specific HTML elements,
+  * use the @layer directive to add those styles to Tailwind's base layer:
+  */
  @layer base {
   body {
-    @apply bg-(--light-background)
-           dark:bg-(--dark-background)
-           text-(--text-light-primary)
-           dark:text-(--text-dark-primary);
+    @apply bg-light-background
+           dark:bg-dark-background
+           text-light-primary
+           dark:text-dark-primary;
   }
 
   a,
@@ -55,18 +55,47 @@
   }
 }
 
-
-/* Customization */
-:root {
+/* Theme */
+/* Theme variables aren't just CSS variables — they also instruct Tailwind to create new utility
+   classes that you can use in your HTML. */
+@theme {
   --font-display: 'DM Sans', sans-serif;
-  --light-background: #ECF2EE;
-  --dark-background: #0E1513;
+  --color-light-background: #ECF2EE;
+  --color-dark-background: #0E1513;
 
-  --text-light-primary: #0D1A16;
-  --text-light-secondary: #4B635C;
-  --text-light-accent: #096B5A;
+  --color-light-primary: #0D1A16;
+  --color-light-secondary: #4B635C;
+  --color-light-accent: #096B5A;
+  --color-light-onSurface:#F5FBF7;
+  --color-light-onSurfaceVariant:#DBE5E0;
 
-  --text-dark-primary: #DEE4E0;
-  --text-dark-secondary: #A1F2DC;
-  --text-dark-accent: #85D6C1;
+  --color-dark-primary: #DEE4E0;
+  --color-dark-secondary: #A1F2DC;
+  --color-dark-accent: #85D6C1;
+  --color-dark-onSurface:#0E1513;
+  --color-dark-onSurfaceVariant: #3F4945;
+
+  --color-dark-outline: #89938F;
+  --color-light-outline: #6F7975;
+}
+
+.text-displaySmall {
+  @apply text-[36px] leading-[44px] tracking-[0px] font-normal
+}
+
+.text-bodyLarge {
+  @apply text-[16px] leading-[24px] tracking-[0.5px] font-normal;
+}
+
+/* Component */
+/* Use the components layer for any more complicated
+   classes you want to add to your project that you'd still like to be able to override with utility classes. */
+@layer components {
+  .text-field-wrapper {
+    @apply relative;
+  }
+  .text-field {
+    @apply ring-1 ring-inset ring-light-outline dark:ring-dark-outline bg-inherit
+          text-light-onSurface dark:text-dark-onSurface caret-light-primary;
+  }
 }
