@@ -68,6 +68,7 @@ const Register = () => {
                 name="name"
                 label="Full name"
                 placeHolder="Enter your full Name"
+                helperText={""}
                 required={true}
                 autoFocus={true} // 這個輸入框會在頁面打開時自動聚焦，使用者可以立刻開始輸入，不用點一下
               />
@@ -87,17 +88,28 @@ const Register = () => {
               ></TextField>
               <Button type="submit">Create account</Button>
             </Form>
-            <p className="">
+            <p
+              className="text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant
+            text-center mt-4"
+            >
               Already have an account?
-              <Link to="/login" className="">
+              <Link
+                to="/login"
+                className="inline-block ms-1 text-light-onSurface dark:text-dark-onSurface link"
+              >
                 Sign in
               </Link>
             </p>
-            <p className="">&copy; 2025 johnjiangtw0804. All right reserved</p>
           </div>
+          <p
+            className="mt-auto mx-auto text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant
+          text-bodyMedium lg-mx-0"
+          >
+            &copy; 2025 johnjiangtw0804. All right reserved
+          </p>
         </div>
-        <div className="img-cover">
-          <img src={banner} alt="" className=""></img>
+        <div className="hidden lg:block img-box lg:relative lg:rounded-2xl lg:overflow-hidden">
+          <img src={banner} alt="" className="img-cover"></img>
           <p>Register today for your free trial</p>
         </div>
       </div>
