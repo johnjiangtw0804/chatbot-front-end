@@ -75,6 +75,10 @@
     @apply text-[14px] font-normal leading-[20px] tracking-[0.25px]
   }
 
+  .display-large {
+    @apply text-['57px'] font-normal leading-[64px] tracking-[-0.25px]
+  }
+
   // 語法	意義	範例
   // :	pseudo-class	:hover, :focus
   // ::	pseudo-element	::before, ::after, ::placeholder

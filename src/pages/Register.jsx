@@ -25,7 +25,7 @@ const Register = () => {
       <PageTitle title="Create an account"></PageTitle>
       <div className="grid relative w-screen h-dvh grid-cols-1 lg:grid-cols-[1fr_1.2fr] lg:gap-2 p-2">
         <div className="flex flex-col">
-          <Link to="/" className="mx-auto max-w-max lg:mx-0">
+          <Link to="/" className="mx-auto max-w-max lg:mx-0 mb-auto">
             <img
               src={logoLight}
               alt="Company Logo Light"
@@ -110,7 +110,12 @@ const Register = () => {
         </div>
         <div className="hidden lg:block img-box lg:relative lg:rounded-2xl lg:overflow-hidden">
           <img src={banner} alt="" className="img-cover"></img>
-          <p>Register today for your free trial</p>
+          <p
+            className="absolute bottom-10 left-12 right-12 z-10 display-large font-semibold
+                      leading-tight text-right text-dark-onSurface drop-shadow-amber-50 2xl:text-[72px] mx-auto"
+          >
+            Get an instant AI estimate. Repair with confidence
+          </p>
         </div>
       </div>
     </>
