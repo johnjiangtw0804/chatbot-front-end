@@ -17,6 +17,8 @@ const TextField = ({
   ...rest
 }) => {
   return (
+    // In React, you must use **htmlFor** instead of **for** because:
+    // // for is a reserved keyword in JavaScript (used in for loops)
     <div className={`text-field-wrapper ${classes}`}>
       <label htmlFor={name} className="label-text">
         {label}
@@ -24,6 +26,7 @@ const TextField = ({
 
       <input
         className={`text-field ${fieldClasses}`}
+        name={name}
         id={name}
         placeholder={placeHolder}
         {...rest}
