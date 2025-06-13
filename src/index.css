@@ -140,7 +140,7 @@
   /** Button
   */
   .btn {
-    @apply h-10 flex
+    @apply h-10 flex cursor-pointer
   }
 
   .btn.filled.primary {
