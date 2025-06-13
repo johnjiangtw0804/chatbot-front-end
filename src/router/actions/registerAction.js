@@ -1,6 +1,7 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
 
+// https://reactrouter.com/6.30.1/route/action
 const registerAction = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
