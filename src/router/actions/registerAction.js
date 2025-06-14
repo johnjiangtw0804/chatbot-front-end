@@ -1,5 +1,4 @@
-import axios from "axios";
-import { redirect } from "react-router-dom";
+import axios, { HttpStatusCode } from "axios";
 
 // https://reactrouter.com/6.30.1/route/action
 const registerAction = async ({ request }) => {
@@ -13,22 +12,25 @@ const registerAction = async ({ request }) => {
   const url = `http://${host}:${port}/api/v1/register`;
 
   try {
+    // https://axios-http.com/docs/res_schema
     const response = await axios.post(url, { name, email, password });
+    const token = response.data?.token;
     console.log("Register success:", response.data);
-
-    const jwt = response.data.token;
-    if (jwt) {
-      localStorage.setItem("token", jwt);
-    } else {
-      return redirect("/login")
-    }
-
-    return redirect("/");
-  } catch (err) {
-    console.error("Register failed:", err.response?.data || err.message);
+    console.log("response status", response.status)
     return {
-      error: err.response?.data?.message || err.message || "Registration failed",
-    };
+      body: {
+        token: token || null,
+        redirectTo: token ? "/" : "/login",
+      },
+    }
+  } catch (err) {
+    console.log(err.response?.data?.error)
+    return {
+      status: HttpStatusCode.BadRequest,
+      body: {
+        error: err.response?.data?.error || err.message || "Registration failed",
+      },
+    }
   }
 };
 

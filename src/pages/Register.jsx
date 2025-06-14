@@ -2,7 +2,7 @@
  *
  * Node modules
  */
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useNavigation, useActionData } from "react-router-dom";
 
 /**
  * Components
@@ -17,9 +17,29 @@ import { Button } from "../components/Buttons";
  */
 
 import { banner, logoDark, logoLight } from "../assets/assets";
+import { useEffect } from "react";
 
 // https://wehelp.tw/topic/5732929242136576 dvh resource
 const Register = () => {
+  const currentState = useNavigation().state;
+  // console.log(navigation.state);
+  const actionData = useActionData();
+
+  useEffect(() => {
+    if (actionData?.token) {
+      localStorage.setItem("token", actionData.token);
+      window.location.href = actionData.redirectTo;
+    }
+  }, [actionData]);
+
+  console.log(actionData);
+  useEffect(() => {
+    if (actionData?.token) {
+      localStorage.setItem("token", actionData.token);
+      window.location.href = actionData.redirectTo;
+    }
+  }, [actionData]);
+
   return (
     <>
       <PageTitle title="Create an account"></PageTitle>
@@ -86,7 +106,11 @@ const Register = () => {
                 placeHolder="Enter your password"
                 required={true}
               ></TextField>
-              <Button type="submit">Create account</Button>
+              <Button type="submit" disabled={currentState === "submitting"}>
+                {currentState === "submitting"
+                  ? "Submitting..."
+                  : "Create account"}
+              </Button>
             </Form>
             <p
               className="text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant
@@ -109,7 +133,7 @@ const Register = () => {
           </p>
         </div>
         <div className="hidden lg:block img-box lg:relative lg:rounded-2xl lg:overflow-hidden">
-          <img src={banner} alt="" className="img-cover"></img>
+          <img src={banner} alt="my banner" className="img-cover"></img>
           <p
             className="absolute bottom-10 left-12 right-12 z-10 display-large font-semibold
                       leading-tight text-right text-dark-onSurface drop-shadow-amber-50 2xl:text-[72px] mx-auto"

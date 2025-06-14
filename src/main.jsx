@@ -10,7 +10,7 @@ import "./index.css";
 
 /** Router 主頁 */
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  // <StrictMode>
+  <RouterProvider router={router} />
+  // </StrictMode>
 );
