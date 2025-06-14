@@ -26,6 +26,7 @@ const Register = () => {
   const actionData = useActionData();
 
   useEffect(() => {
+    // https://reactrouter.com/api/hooks/useActionData
     if (actionData?.token) {
       localStorage.setItem("token", actionData.token);
       window.location.href = actionData.redirectTo;
