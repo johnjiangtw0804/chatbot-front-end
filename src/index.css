@@ -171,11 +171,20 @@
     @apply opacity-[0.08];
   }
 
-
   /* Link */
   .link {
     @apply transition-colors duration-300 ease-out
     hover:text-light-primary hover:dark:text-dark-primary hover:underline;
+  }
+
+  /* Progress bar */
+  .circular-progress {
+    @apply border-4 border-current animate-spin dark:border-current  w-12 h-12 rounded-full border-r-transparent
+    dark:border-r-transparent
+  }
+
+  .circular-progress.small {
+    @apply border-[3px] w-5 h-5
   }
 }
 

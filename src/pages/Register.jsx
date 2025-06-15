@@ -10,6 +10,7 @@ import { Link, Form, useNavigation, useActionData } from "react-router-dom";
 import PageTitle from "../components/PageTitle";
 import TextField from "../components/TextField";
 import { Button } from "../components/Buttons";
+import CircularProgress from "../components/Progress";
 
 /**
  * Custom modules
@@ -23,7 +24,9 @@ import { useEffect } from "react";
 const Register = () => {
   const currentState = useNavigation().state;
   // console.log(navigation.state);
+
   const actionData = useActionData();
+  console.log(actionData);
 
   useEffect(() => {
     // https://reactrouter.com/api/hooks/useActionData
@@ -31,15 +34,14 @@ const Register = () => {
       localStorage.setItem("token", actionData.token);
       window.location.href = actionData.redirectTo;
     }
+
+    // show snackbar with the server's message
+    // if (actionData.body?.error) {
+
+    // }
   }, [actionData]);
 
-  console.log(actionData);
-  useEffect(() => {
-    if (actionData?.token) {
-      localStorage.setItem("token", actionData.token);
-      window.location.href = actionData.redirectTo;
-    }
-  }, [actionData]);
+  // console.log(actionData);
 
   return (
     <>
@@ -108,9 +110,11 @@ const Register = () => {
                 required={true}
               ></TextField>
               <Button type="submit" disabled={currentState === "submitting"}>
-                {currentState === "submitting"
-                  ? "Submitting..."
-                  : "Create account"}
+                {currentState === "submitting" ? (
+                  <CircularProgress size="small" />
+                ) : (
+                  "Create account"
+                )}
               </Button>
             </Form>
             <p

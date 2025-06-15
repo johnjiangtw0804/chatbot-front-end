@@ -5,12 +5,15 @@ import { RouterProvider } from "react-router-dom";
 /** Custom Modules */
 import router from "./router/routes";
 
+/** Components */
+import SnackbarProvider from "./contexts/SnackbarContext";
+
 /** CSS link */
 import "./index.css";
 
 /** Router 主頁 */
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-  <RouterProvider router={router} />
-  // </StrictMode>
+  <SnackbarProvider>
+    <RouterProvider router={router} />
+  </SnackbarProvider>
 );
