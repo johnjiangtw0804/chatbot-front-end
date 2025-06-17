@@ -16,21 +16,19 @@ import CircularProgress from "../components/Progress";
  * Custom modules
  *
  */
-
 import { banner, logoDark, logoLight } from "../assets/assets";
 import { useEffect } from "react";
 
 // https://wehelp.tw/topic/5732929242136576 dvh resource
 const Register = () => {
   const currentState = useNavigation().state;
-  // console.log(navigation.state);
-
   const actionData = useActionData();
   console.log(actionData);
 
   useEffect(() => {
     // https://reactrouter.com/api/hooks/useActionData
     if (actionData?.token) {
+      // TODO: might store in the cookie in the future
       localStorage.setItem("token", actionData.token);
       window.location.href = actionData.redirectTo;
     }

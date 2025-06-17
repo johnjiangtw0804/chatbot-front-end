@@ -6,7 +6,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router/routes";
 
 /** Components */
-import SnackbarProvider from "./contexts/SnackbarContext";
+import SnackbarProvider from "./contexts/SnackbarProvider";
 
 /** CSS link */
 import "./index.css";
