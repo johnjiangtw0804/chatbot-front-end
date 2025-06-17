@@ -16,14 +16,26 @@ import CircularProgress from "../components/Progress";
  * Custom modules
  *
  */
-import { banner, logoDark, logoLight } from "../assets/assets";
 import { useEffect } from "react";
+
+/**
+ * Assets
+ */
+import { banner, logoDark, logoLight } from "../assets/assets";
+
+/**
+ *
+ * Custom hooks
+ */
+import { userSnackbar } from "../hooks/useSnackbar";
 
 // https://wehelp.tw/topic/5732929242136576 dvh resource
 const Register = () => {
   const currentState = useNavigation().state;
   const actionData = useActionData();
   console.log(actionData);
+
+  const { showSnackbar } = userSnackbar();
 
   useEffect(() => {
     // https://reactrouter.com/api/hooks/useActionData
@@ -34,12 +46,11 @@ const Register = () => {
     }
 
     // show snackbar with the server's message
-    // if (actionData.body?.error) {
-
-    // }
+    if (actionData?.body?.error) {
+      console.log("snackbar triggered");
+      showSnackbar({ message: actionData.body.error, type: "error" });
+    }
   }, [actionData]);
-
-  // console.log(actionData);
 
   return (
     <>

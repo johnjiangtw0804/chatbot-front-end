@@ -53,6 +53,7 @@ const SnackbarProvider = ({ children }) => {
   return (
     // construct the context
     <SnackbarContext.Provider value={contextValue}>
+      {/* all the other component */}
       {children}
       <Snackbar snackbar={snackbar} />
     </SnackbarContext.Provider>
