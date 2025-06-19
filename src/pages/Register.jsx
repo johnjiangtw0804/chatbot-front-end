@@ -2,7 +2,13 @@
  *
  * Node modules
  */
-import { Link, Form, useNavigation, useActionData } from "react-router-dom";
+import {
+  Link,
+  Form,
+  useNavigation,
+  useActionData,
+  useNavigate,
+} from "react-router-dom";
 
 /**
  * Components
@@ -27,22 +33,24 @@ import { banner, logoDark, logoLight } from "../assets/assets";
  *
  * Custom hooks
  */
-import { userSnackbar } from "../hooks/useSnackbar";
+import { useSnackbar } from "../hooks/useSnackbar";
 
 // https://wehelp.tw/topic/5732929242136576 dvh resource
 const Register = () => {
   const currentState = useNavigation().state;
   const actionData = useActionData();
-  console.log(actionData);
 
-  const { showSnackbar } = userSnackbar();
+  // 拆開 context
+  const { showSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // https://reactrouter.com/api/hooks/useActionData
     if (actionData?.token) {
       // TODO: might store in the cookie in the future
       localStorage.setItem("token", actionData.token);
-      window.location.href = actionData.redirectTo;
+      navigate(actionData.redirectTo);
+      return;
     }
 
     // show snackbar with the server's message
@@ -50,7 +58,7 @@ const Register = () => {
       console.log("snackbar triggered");
       showSnackbar({ message: actionData.body.error, type: "error" });
     }
-  }, [actionData]);
+  }, [actionData, navigate, showSnackbar]);
 
   return (
     <>
@@ -61,13 +69,13 @@ const Register = () => {
             <img
               src={logoLight}
               alt="Company Logo Light"
-              className="dark:hidden"
+              className="dark:hidden rounded-2xl"
               width={133}
               height={24}
             ></img>
             <img
               src={logoDark}
-              alt="Company Logo Dark"
+              alt="Company Logo Dark rounded-2xl"
               className="hidden dark:block"
               width={133}
               height={24}

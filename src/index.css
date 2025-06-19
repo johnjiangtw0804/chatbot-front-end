@@ -180,22 +180,44 @@
   /* Progress bar */
   .circular-progress {
     @apply border-4 border-current animate-spin dark:border-current  w-12 h-12 rounded-full border-r-transparent
-    dark:border-r-transparent
+    dark:border-r-transparent;
   }
 
   .circular-progress.small {
-    @apply border-[3px] w-5 h-5
+    @apply border-[3px] w-5 h-5;
+  }
+
+  /* Snackbar */
+  .snackbar {
+    @apply
+    fixed bottom-6 left-4
+    text-dark-error
+    bg-light-inverseSurface
+    dark:bg-dark-inverseSurface
+    dark:text-dark-error
+
+    min-h-2
+    rounded-sm
+    max-w-[60ch]
+    min-w-[30ch]
+
+    px-4 py-[14px]
+    origin-bottom z-40
+  }
+
+  .snackbar.error {
+    @apply bg-light-errorContainer
   }
 }
 
 /* Utilities */
 @layer utilities {
   .img-box {
-    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest overflow-hidden;
+    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest overflow-hidden rounded-2xl;
   }
 
   .img-cover {
-    @apply w-full h-full object-cover;
+    @apply w-full h-full object-cover
   }
 }
 
@@ -215,6 +237,9 @@
   --color-light-onSurface:#171D1B;
   --color-light-onSurfaceVariant:#3F4945;
   --color-light-onPrimary: #FFFFFF;
+  --color-light-inverseSurface: #DEE4E0;
+  --color-light-error:#BA1A1A;
+  --color-light-errorContainer: #FFDAD6;
 
   --color-dark-primary: #afd9d5;
   --color-dark-secondary: #A1F2DC;
@@ -223,6 +248,9 @@
   --color-dark-onSurfaceVariant: #BFC9C4;
   --color-dark-onPrimary:#00382E;
   --color-dark-surfaceContainerHighest: #303634;
+  --color-dark-inverseSurface: #ECF2EE;
+  --color-dark-errorContainer: #FFDAD6;
+  --color-dark-error: #93000A;
 
   --color-dark-outline: #89938F;
   --color-light-outline: #6F7975;

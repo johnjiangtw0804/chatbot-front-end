@@ -45,7 +45,7 @@ const SnackbarProvider = ({ children }) => {
     setSnackbar({ open: false, message: "", type: "info" });
   }, []);
 
-  // memoize the context functions to prevent unnecessary rerender
+  // useMemo is a React Hook that lets you cache the result of a calculation between re-renders.
   const contextValue = useMemo(() => {
     return { showSnackbar, hideSnackbar };
   }, [showSnackbar, hideSnackbar]);
