@@ -10,13 +10,15 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import { AnimatePresence } from "framer-motion";
+
 /**
  * Components
  */
 import PageTitle from "../components/PageTitle";
 import TextField from "../components/TextField";
 import { Button } from "../components/Buttons";
-import CircularProgress from "../components/Progress";
+import { CircularProgress, LinearProgress } from "../components/Progress";
 
 /**
  * Custom modules
@@ -82,9 +84,6 @@ const Register = () => {
             ></img>
           </Link>
           {/* 與 max-w-[480px] 結合時的效果：
-          html
-          Copy
-          Edit
           <div className="w-full max-w-[480px] mx-auto">
           這樣的組合代表：
           w-full：預設佔滿父元素的寬度
@@ -164,6 +163,11 @@ const Register = () => {
           </p>
         </div>
       </div>
+      <AnimatePresence>
+        {currentState === "loading" && (
+          <LinearProgress classes="absolute top-0 left-0 right-0" />
+        )}
+      </AnimatePresence>
     </>
   );
 };
