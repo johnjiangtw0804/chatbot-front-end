@@ -9,14 +9,14 @@ const registerAction = async ({ request }) => {
 
   const host = import.meta.env.VITE_BACKEND_HOSTNAME;
   const port = import.meta.env.VITE_BACKEND_PORT;
-  const url = `http://${host}:${port}/api/v1/register`;
+  const url = `http://${host}:${port}/api/v1/user/register`;
 
   try {
     // https://axios-http.com/docs/res_schema
     const response = await axios.post(url, { name, email, password });
     const token = response.data?.token;
-    console.log("Register success:", response.data);
-    console.log("response status", response.status)
+    // console.log("Register success:", response.data);
+    // console.log("response status", response.status)
     return {
       body: {
         token: token || null,

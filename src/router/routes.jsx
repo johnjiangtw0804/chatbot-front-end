@@ -11,6 +11,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Register from "../pages/Register";
 import registerAction from "./actions/registerAction";
+import Login from "../pages/Login";
+import loginAction from "./actions/loginAction";
 
 /**
  * Router: 用來 Map to different pages
@@ -26,6 +28,11 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register></Register>,
     action: registerAction,
+  },
+  {
+    path: "/login",
+    element: <Login></Login>,
+    action: loginAction,
   },
 ]);
 
