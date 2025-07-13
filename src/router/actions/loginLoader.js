@@ -7,7 +7,7 @@ import { redirect } from "react-router-dom";
   const host = import.meta.env.VITE_BACKEND_HOSTNAME;
   const port = import.meta.env.VITE_BACKEND_PORT;
 
-const registerLoader = async () => {
+const loginLoader = async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     console.log(`No token found`);
@@ -27,4 +27,4 @@ const registerLoader = async () => {
   return null;
 };
 
-export default registerLoader;
+export default loginLoader;

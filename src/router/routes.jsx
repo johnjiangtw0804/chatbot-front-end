@@ -14,6 +14,7 @@ import registerAction from "./actions/registerAction";
 import registerLoader from "./actions/registerLoader";
 import Login from "../pages/Login";
 import loginAction from "./actions/loginAction";
+import loginLoader from "./actions/loginLoader";
 import NotFoundPage from "../components/Errors/NotFoundPage";
 /**
  * Router: 用來 Map to different pages
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login></Login>,
     action: loginAction,
+    loader: loginLoader,
   },
 ]);
 
