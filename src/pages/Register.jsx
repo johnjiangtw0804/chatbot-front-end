@@ -49,8 +49,9 @@ const Register = () => {
   useEffect(() => {
     // https://reactrouter.com/api/hooks/useActionData
     if (actionData?.body?.token) {
+      console.log(actionData);
       // TODO: might store in the cookie in the future
-      localStorage.setItem("token", actionData.token);
+      localStorage.setItem("token", actionData.body.token);
       navigate(actionData.body.redirectTo);
       return;
     }

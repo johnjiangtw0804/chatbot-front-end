@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion"; // correct import
 
 function Snackbar({ snackbar }) {
+  console.log(motion);
   const snackbarVariants = {
     hidden: { scaleY: 0 },
     visible: {

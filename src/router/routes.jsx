@@ -11,6 +11,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Register from "../pages/Register";
 import registerAction from "./actions/registerAction";
+import registerLoader from "./actions/registerLoader";
 import Login from "../pages/Login";
 import loginAction from "./actions/loginAction";
 import NotFoundPage from "../components/Errors/NotFoundPage";
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
+    loader: registerLoader,
     element: <Register></Register>,
     action: registerAction,
   },
