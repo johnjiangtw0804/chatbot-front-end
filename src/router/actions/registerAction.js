@@ -3,6 +3,7 @@ import axios, { HttpStatusCode } from "axios";
 // https://reactrouter.com/6.30.1/route/action
 const registerAction = async ({ request }) => {
   const formData = await request.formData();
+  // console.log("Hello from registerAction");
   const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");
@@ -13,7 +14,7 @@ const registerAction = async ({ request }) => {
 
   try {
     // https://axios-http.com/docs/res_schema
-    const response = await axios.post(url, { name, email, password });
+    const response = await axios.post(url, {name, email, password });
     const token = response.data?.token;
     // console.log("Register success:", response.data);
     // console.log("response status", response.status)

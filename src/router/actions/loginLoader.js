@@ -23,6 +23,8 @@ const loginLoader = async () => {
   if (response.ok) {
     throw redirect("/");
   }
+  // drop malformed/expired tokens to avoid repeatedly sending bad credentials
+  localStorage.removeItem("token");
   console.log("Invalid token, status:", response.status);
   return null;
 };

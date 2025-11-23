@@ -23,6 +23,7 @@ const registerLoader = async () => {
   if (response.ok) {
     throw redirect("/");
   }
+  localStorage.removeItem("token");
   console.log("Invalid token, status:", response.status);
   return null;
 };

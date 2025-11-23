@@ -2,13 +2,7 @@
  *
  * Node modules
  */
-import {
-  Link,
-  Form,
-  useNavigation,
-  useActionData,
-  useNavigate,
-} from "react-router-dom";
+import { Link, Form, useNavigation, useActionData } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
 
@@ -24,7 +18,7 @@ import { CircularProgress, LinearProgress } from "../components/Progress";
  * Custom modules
  *
  */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Assets
@@ -37,33 +31,35 @@ import { banner, logoDark, logoLight } from "../assets/assets";
  */
 import { useSnackbar } from "../hooks/useSnackbar";
 
-const Login = () => {
-  const currentState = useNavigation().state;
+const ResetLink = () => {
+  const navigationState = useNavigation().state;
   const actionData = useActionData();
-
-  // 拆開 context
   const { showSnackbar } = useSnackbar();
-  const navigate = useNavigate();
+  const [sent, setSent] = useState(false);
 
+  // 這段邏輯是：「每次後端回傳新資料，就決定要顯示成功還是錯誤訊息」。
   useEffect(() => {
-    // https://reactrouter.com/api/hooks/useActionData
-    if (actionData?.body?.token) {
-      // TODO: might store in the cookie in the future
-      localStorage.setItem("token", actionData.body.token);
-      navigate(actionData.body.redirectTo);
+    if (actionData?.body?.sent) {
+      setSent(true);
+      showSnackbar({
+        message:
+          actionData.body.message ||
+          "If the email exists, a reset link has been sent.",
+        type: "success",
+      });
       return;
     }
 
-    // show snackbar with the server's message
     if (actionData?.body?.error) {
-      console.log("snackbar triggered");
       showSnackbar({ message: actionData.body.error, type: "error" });
     }
-  }, [actionData, navigate, showSnackbar]);
+  }, [actionData, showSnackbar]); // 代表只有當 actionData 或 showSnackbar 改變時，這個 effect 才會重新跑。
+
+  const isSubmitting = navigationState === "submitting";
 
   return (
     <>
-      <PageTitle title="Login"></PageTitle>
+      <PageTitle title="Reset password"></PageTitle>
       <div className="grid relative w-screen h-dvh grid-cols-1 lg:grid-cols-[1fr_1.2fr] lg:gap-2 p-2">
         <div className="flex flex-col">
           <Link to="/" className="mx-auto max-w-max lg:mx-0 mb-auto">
@@ -92,54 +88,48 @@ const Login = () => {
               className="text-displaySmall font-semibold text-(--text-dark-primary) dark:text-text-(--text-light-primary)
                             text-center"
             >
-              Welcome Back to PIT & GO
+              Reset your password
             </h2>
             <p
               className="text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant mt-1
               mb-5 text-center px-2"
             >
-              Enter your account details
+              Enter your email to receive a password reset link.
             </p>
-            <Form method="POST" className="grid grid-cols-1 gap-4">
+            <Form method="POST" className="grid grid-cols-1 gap-4" replace>
               <TextField
                 type="email"
                 name="email"
                 label="Email Address"
-                placeHolder="exmaple@gmail.com"
+                placeHolder="example@gmail.com"
                 required={true}
                 autoFocus={true} // 這個輸入框會在頁面打開時自動聚焦，使用者可以立刻開始輸入，不用點一下
               ></TextField>
-              <TextField
-                type="password"
-                name="password"
-                label="Password"
-                placeHolder="Enter your password"
-                required={true}
-              ></TextField>
-              <div className="text-right">
-                <Link className="link text-sm" to="/reset-link">
-                  Forgot password?{" "}
-                </Link>
-              </div>
 
-              <Button type="submit" disabled={currentState === "submitting"}>
-                {currentState === "submitting" ? (
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
                   <CircularProgress size="small" />
                 ) : (
-                  "Sign in"
+                  "Send reset link"
                 )}
               </Button>
             </Form>
+            {sent && (
+              <p className="text-bodyMedium text-light-onSurface dark:text-dark-onSurface text-center">
+                If this email is registered, you&apos;ll receive a reset link
+                shortly.
+              </p>
+            )}
             <p
               className="text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant
               text-center mt-4"
             >
-              Don&apos;t have an account?
+              Remembered your password?
               <Link
-                to="/register"
+                to="/login"
                 className="inline-block ms-1 text-light-onSurface dark:text-dark-onSurface link"
               >
-                Create an account
+                Back to sign in
               </Link>
             </p>
           </div>
@@ -161,7 +151,7 @@ const Login = () => {
         </div>
       </div>
       <AnimatePresence>
-        {currentState === "loading" && (
+        {isSubmitting && (
           <LinearProgress classes="absolute top-0 left-0 right-0" />
         )}
       </AnimatePresence>
@@ -169,4 +159,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetLink;

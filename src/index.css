@@ -1,265 +1,257 @@
 @import url(https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,500;1,14..32,500&display=swap);
 @import 'tailwindcss';
 
-/* Tailwind 把樣式分成三層：
+/*
+Tailwind splits styles into layers:
+- @layer base        → resets, element defaults, typography
+- @layer components  → custom component classes (buttons, cards)
+- @layer utilities   → one-off utility classes (.mt-4, .text-center)
+*/
 
-@layer base – 基礎樣式（reset、typography）
-
-@layer components – 自定義組件樣式（如按鈕、卡片）
-
-@layer utilities – 實用工具類別（如 .mt-4, .text-center） */
- /* Base */
- /* If you want to add your own default base styles for specific HTML elements,
-  * use the @layer directive to add those styles to Tailwind's base layer:
-  */
+/* Base */
 @layer base {
   body {
-    @apply bg-light-background
-           dark:bg-dark-background
-           text-light-primary
-           dark:text-dark-primary;
+    @apply bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary;
   }
 
-  a,
-  img,
-  button {
+  a, img, button {
     @apply block;
   }
 
   input {
-    @apply block
-    outline-none
-    bg-transparent
-    w-full;
+    @apply block outline-none bg-transparent w-full;
   }
 
+  /* Password input: increase letter spacing */
   input[type='password'] {
     @apply tracking-[5px];
   }
 
+  /* Placeholder: reset letter spacing */
   input[type='password']::placeholder {
     @apply tracking-normal;
   }
 
-
+  /* Scrollbar (WebKit) */
   ::-webkit-scrollbar {
-    @apply w-2
-    h-2
-    rounded-full;
+    @apply w-2 h-2 rounded-full;
   }
-
   ::-webkit-scrollbar-thumb {
-    @apply bg-transparent
-    rounded-full;
+    @apply bg-transparent rounded-full;
+  }
+  *:hover::-webkit-scrollbar-thumb {
+    @apply bg-amber-50 dark:bg-amber-50;
   }
 
-  // typography
+  /* Typography tokens */
   .text-displaySmall {
-    @apply text-[36px] leading-[44px] tracking-[0px] font-normal
+    @apply text-[36px] leading-[44px] tracking-[0px] font-normal;
   }
   .text-bodyLarge {
     @apply text-[16px] leading-[24px] tracking-[0.5px] font-normal;
   }
   .text-labelLarge {
-    @apply text-[14px] font-medium leading-[20px] tracking-[0.1px]
+    @apply text-[14px] font-medium leading-[20px] tracking-[0.1px];
   }
-
   .text-bodySmall {
-   @apply text-[12px] font-normal leading-[16px] tracking-[0.4px]
+    @apply text-[12px] font-normal leading-[16px] tracking-[0.4px];
   }
-
   .text-bodyMedium {
-    @apply text-[14px] font-normal leading-[20px] tracking-[0.25px]
+    @apply text-[14px] font-normal leading-[20px] tracking-[0.25px];
   }
-
   .display-large {
-    @apply text-['57px'] font-normal leading-[64px] tracking-[-0.25px]
-  }
-
-  // 語法	意義	範例
-  // :	pseudo-class	:hover, :focus
-  // ::	pseudo-element	::before, ::after, ::placeholder
-  *:hover::-webkit-scrollbar-thumb {
-    @apply bg-amber-50;
-           dark:bg-bg-amber-50;
+    @apply text-[57px] font-normal leading-[64px] tracking-[-0.25px];
   }
 }
 
-/* Component */
-/* Use the components layer for any more complicated
-   classes you want to add to your project that you'd still like to be able to override with utility classes. */
+
+
+
+
+/* Components */
 @layer components {
+  /* Text field */
   .text-field-wrapper {
     @apply relative;
   }
+
   .text-field {
-    @apply ring-1 ring-inset ring-light-outline dark:ring-dark-outline bg-inherit
-          text-light-onSurface dark:text-dark-onSurface caret-light-primary dark:caret-dark-primary h-14 px-4
-          rounded-xl transition-shadow duration-1000 ease-out
-          focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-primary
+    @apply ring-1 ring-inset ring-light-outline dark:ring-dark-outline
+           bg-inherit text-light-onSurface dark:text-dark-onSurface
+           caret-light-primary dark:caret-dark-primary
+           h-14 px-4 rounded-xl
+           transition-shadow duration-1000 ease-out
+           focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary;
   }
 
-  /* 預設中的文字 */
-  .text-field::placeholder {
-    opacity: 0;
-  }
-  .text-field:focus::placeholder {
-    opacity: 100;
-  }
+  /* Placeholder visibility */
+  .text-field::placeholder { @apply opacity-0; }
+  .text-field:focus::placeholder { @apply opacity-100; }
+
   .label-text {
-    @apply absolute text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant text-[14px] font-medium leading-[20px] tracking-[0.1px]
-    bg-light-background
-    dark:bg-dark-background
-    origin-[left_center]
-    top-[18px]
-    left-2
-    pointer-events-none
-    select-none
-    transition-[colors,transform] duration-1000 ease-out
+    @apply absolute text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant
+           text-[14px] font-medium leading-[20px] tracking-[0.1px]
+           bg-light-background dark:bg-dark-background
+           origin-[left_center]
+           top-[18px] left-2
+           pointer-events-none select-none
+           transition-[colors,transform] duration-1000 ease-out;
   }
 
-  .text-field-wrapper:hover .label-text{
+  .text-field-wrapper:hover .label-text {
     @apply text-light-onSurface dark:text-dark-onSurface;
   }
 
   .text-field-wrapper:focus-within .label-text,
-  .text-field-wrapper:has(.text-field:not(:placeholder-shown)) .label-text{
-    @apply translate-x-0.5 -translate-y-7 scale-[0.95]
+  .text-field-wrapper:has(> .text-field:not(:placeholder-shown)) .label-text {
+    @apply translate-x-0.5 -translate-y-7 scale-[0.95];
   }
 
-  .text-field-wrapper:focus-within .label-text{
-    @apply text-light-primary dark:text-dark-primary
+  .text-field-wrapper:focus-within .label-text {
+    @apply text-light-primary dark:text-dark-primary;
   }
 
   .text-field-wrapper .helperText {
-    @apply text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant px-4 pt-1 text-[12px] font-normal leading-[16px] tracking-[0.4px]
+    @apply text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant
+           px-4 pt-1 text-[12px] font-normal leading-[16px] tracking-[0.4px];
   }
-  /** Button
-  */
+
+  /* Button */
   .btn {
-    @apply h-10 flex cursor-pointer
+    @apply h-10 flex cursor-pointer;
   }
 
   .btn.filled.primary {
+    /* Default state-layer color for light mode */
+    --state-layer-bg: var(--color-light-onPrimary);
+
     @apply bg-light-primary dark:bg-dark-primary
-      text-light-onPrimary dark:text-dark-onPrimary
-      items-center justify-center text-[14px] font-medium leading-[20px] tracking-[0.1px]
-      rounded-2xl
-      transition-shadow duration-100 ease-out
-      hover:scale-101 hover:shadow-xl;
+           text-light-onPrimary dark:text-dark-onPrimary
+           items-center justify-center
+           text-[14px] font-medium leading-[20px] tracking-[0.1px]
+           rounded-2xl
+           transition-shadow duration-100 ease-out
+           hover:scale-[1.01] hover:shadow-xl;
+  }
+
+  /* Dark mode override for state-layer color */
+  @media (prefers-color-scheme: dark) {
+    .btn.filled.primary {
+      --state-layer-bg: var(--color-dark-onPrimary);
+    }
   }
 
   .btn.filled:disabled {
-    @apply bg-light-onSurface/[0.12] dark:bg-dark-onSurface/[0.12] text-light-onSurface/[0.38] dark:text-dark-onSurface/[0.38]
-     pointer-events-none;
+    @apply bg-light-onSurface/[0.12] dark:bg-dark-onSurface/[0.12]
+           text-light-onSurface/[0.38] dark:text-dark-onSurface/[0.38]
+           pointer-events-none;
   }
 
-  /* state layer 預設透明，蓋在上面 */
+  /* State layer container: ensure positioning and clipping */
   :has(> .state-layer) {
     @apply relative overflow-hidden isolate;
   }
-  .state-layer {
-    @apply absolute inset-0 bg-current opacity-0 transition-opacity duration-300 pointer-events-none select-none z-10;
-    border-radius: inherit;
+
+  /* Focus states → reveal state-layer a bit */
+  :has(> .state-layer):where(:focus, :focus-visible, :focus-within) > .state-layer {
+    @apply opacity-[0.1];
   }
 
-  /* hover 時顯示 state layer */
-  .btn:hover .state-layer {
-    @apply opacity-[0.08];
+  /* The state-layer itself */
+  .state-layer {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300
+           pointer-events-none select-none z-10;
+    border-radius: inherit;
+    /* Use the CSS variable (switches per theme) */
+    background-color: var(--state-layer-bg);
   }
+
+  /* Hover/active feedback */
+  .btn:hover > .state-layer { @apply opacity-[0.08]; }
+  .btn:active > .state-layer { @apply opacity-[0.12]; }
 
   /* Link */
   .link {
     @apply transition-colors duration-300 ease-out
-    hover:text-light-primary hover:dark:text-dark-primary hover:underline;
+           hover:text-light-primary dark:hover:text-dark-primary
+           hover:underline;
   }
 
-  /* Progress bar */
+  /* Progress (circular) */
   .circular-progress {
-    @apply border-4 border-current animate-spin dark:border-current  w-12 h-12 rounded-full border-r-transparent
-    dark:border-r-transparent;
+    @apply border-4 border-current animate-spin w-12 h-12 rounded-full border-r-transparent;
   }
-
   .circular-progress.small {
     @apply border-[3px] w-5 h-5;
   }
 
+  /* Progress (linear) */
   .linear-progress {
-    @apply relative w-full h-1 overflow-hidden bg-light-secondaryContainer rounded dark:bg-dark-secondaryContainer;
+    @apply relative w-full h-1 overflow-hidden
+           bg-light-secondaryContainer dark:bg-dark-secondaryContainer
+           rounded;
   }
-
   .active-indicator {
-    @apply absolute top-0 left-0 h-full w-1/3 bg-light-primary dark:bg-dark-primary;
+    @apply absolute top-0 left-0 h-full w-1/3
+           bg-light-primary dark:bg-dark-primary;
   }
-
 
   /* Snackbar */
   .snackbar {
-    @apply
-    fixed bottom-6 left-4
-    text-dark-error
-    bg-light-inverseSurface
-    dark:bg-dark-inverseSurface
-    dark:text-dark-error
-
-    min-h-2
-    rounded-sm
-    max-w-[60ch]
-    min-w-[30ch]
-
-    px-4 py-[14px]
-    origin-bottom z-40
+    @apply fixed bottom-6 left-4
+           text-dark-error
+           bg-light-inverseSurface dark:bg-dark-inverseSurface dark:text-dark-error
+           rounded-sm
+           max-w-[60ch] min-w-[30ch] min-h-[0.5rem]
+           px-4 py-[14px]
+           origin-bottom z-40;
   }
-
   .snackbar.error {
-    @apply bg-light-errorContainer
+    @apply bg-light-errorContainer;
   }
 }
 
 /* Utilities */
 @layer utilities {
   .img-box {
-    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest overflow-hidden rounded-2xl;
+    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest
+           overflow-hidden rounded-2xl;
   }
 
   .img-cover {
-    @apply w-full h-full object-cover
+    @apply w-full h-full object-cover;
   }
 }
 
-
-/* Theme */
-/* Theme variables aren't just CSS variables — they also instruct Tailwind to create new utility
-   classes that you can use in your HTML. */
+/* Theme tokens (Tailwind v4 @theme) */
 @theme {
   --font-display: 'DM Sans', sans-serif;
-  --color-light-background: #ECF2EE;
-  --color-dark-background: #0E1513;
-  --color-light-surfaceContainerHighest: #DEE4E0;
 
+  --color-light-background: #ECF2EE;
+  --color-light-surfaceContainerHighest: #DEE4E0;
   --color-light-secondaryContainer: #CDE8DF;
   --color-light-primary: #0D1A16;
   --color-light-secondary: #4B635C;
   --color-light-accent: #096B5A;
-  --color-light-onSurface:#171D1B;
-  --color-light-onSurfaceVariant:#3F4945;
+  --color-light-onSurface: #171D1B;
+  --color-light-onSurfaceVariant: #3F4945;
   --color-light-onPrimary: #FFFFFF;
   --color-light-inverseSurface: #DEE4E0;
-  --color-light-error:#BA1A1A;
+  --color-light-error: #d18e8e;
   --color-light-errorContainer: #FFDAD6;
+  --color-light-outline: #6F7975;
 
-  --color-dark-primary: #afd9d5;
+  --color-dark-background: #0E1513;
+  --color-dark-surfaceContainerHighest: #303634;
   --color-dark-secondaryContainer: #334B45;
+  --color-dark-primary: #afd9d5;
   --color-dark-secondary: #A1F2DC;
   --color-dark-accent: #85D6C1;
-  --color-dark-onSurface:#DEE4E0;
+  --color-dark-onSurface: #DEE4E0;
   --color-dark-onSurfaceVariant: #BFC9C4;
-  --color-dark-onPrimary:#00382E;
-  --color-dark-surfaceContainerHighest: #303634;
+  --color-dark-onPrimary: #00382E;
   --color-dark-inverseSurface: #ECF2EE;
   --color-dark-errorContainer: #FFDAD6;
-  --color-dark-error: #93000A;
-
+  --color-dark-error: #d18e8e;
   --color-dark-outline: #89938F;
-  --color-light-outline: #6F7975;
 }
