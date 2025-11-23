@@ -9,3 +9,9 @@ Built with modern web technologies, this project is a key step in making auto re
 ## Tech stacks
 
 React JS + Tailwind CSS + [Motion](https://motion.dev/docs/react-transitions)
+
+## How to run
+
+```bash
+npm run dev
+```
